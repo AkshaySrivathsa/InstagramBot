@@ -17,26 +17,32 @@ class InstagramBot:
         self.find_user = info.find_user
 
     def login(self):
-        user_name = self.driver.find_element_by_css_selector('input[name="username"]')
-        user_name.send_keys(self.username)
-        user_password = self.driver.find_element_by_css_selector('input[name="password"]')
-        user_password.send_keys(self.password)
-        submit = self.driver.find_element_by_css_selector('button[type="submit"]')
-        submit.click()
-        time.sleep(5)
-        not_now1 = self.driver.find_element_by_css_selector('button[class="sqdOP yWX7d    y3zKF     "]')
-        not_now1.click()
-        not_now2 = self.driver.find_element_by_css_selector('button[class="aOOlW   HoLwm "]')
-        not_now2.click()
+        try:
+            user_name = self.driver.find_element_by_css_selector('input[name="username"]')
+            user_name.send_keys(self.username)
+            user_password = self.driver.find_element_by_css_selector('input[name="password"]')
+            user_password.send_keys(self.password)
+            submit = self.driver.find_element_by_css_selector('button[type="submit"]')
+            submit.click()
+            time.sleep(5)
+            not_now1 = self.driver.find_element_by_css_selector('button[class="sqdOP yWX7d    y3zKF     "]')
+            not_now1.click()
+            not_now2 = self.driver.find_element_by_css_selector('button[class="aOOlW   HoLwm "]')
+            not_now2.click()
+        except Exception:
+            print("Wrong username/password pls try again")
 
     def search(self):
-        _search = self.driver.find_element_by_css_selector('input[type="text"]')
-        _search.send_keys(self.find_user)
-        time.sleep(2)
-        _search.send_keys(Keys.RETURN * 2)
-        number_of_posts = self.driver.find_element_by_css_selector('span[class="g47SY "]')
-        global number
-        number = int(number_of_posts.text)
+        try:
+            _search = self.driver.find_element_by_css_selector('input[type="text"]')
+            _search.send_keys(self.find_user)
+            time.sleep(2)
+            _search.send_keys(Keys.RETURN * 2)
+            number_of_posts = self.driver.find_element_by_css_selector('span[class="g47SY "]')
+            global number
+            number = int(number_of_posts.text)
+        except Exception:
+            print('user not found')
 
     def likeAndComment(self):
         try:
@@ -59,9 +65,26 @@ class InstagramBot:
         except Exception:
             print("user has not posted anything")
 
+    def follow(self):
+        try:
+            click_follow = self.driver.find_element_by_css_selector('button[class="_5f5mN       jIbKX  _6VtSN     '
+                                                                    'yZn4P   "]')
+            click_follow.click()
+        except Exception:
+            print("already following the user")
+
 
 if __name__ == '__main__':
-    bot = InstagramBot()
-    bot.login()
-    bot.search()
-    bot.likeAndComment()
+    like_or_follow = input(
+        "Do want to follow the user or like and comment on all their posts?\n(for follow type 'f' and for like and "
+        "comment type 'l')")
+    if like_or_follow == 'f':
+        bot = InstagramBot()
+        bot.login()
+        bot.search()
+        bot.follow()
+    elif like_or_follow == 'l':
+        bot = InstagramBot()
+        bot.login()
+        bot.search()
+        bot.likeAndComment()
