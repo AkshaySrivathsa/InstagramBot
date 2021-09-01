@@ -1,3 +1,3 @@
-username = "akshayrs337@gmail.com"
-password = "akshaysubba"
-find_user = "tensearch_sports"
+username = "your instagram username/email/number"
+password = "your instagram password"
+find_user = "username whose posts you want to like"
