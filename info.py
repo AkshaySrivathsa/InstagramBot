@@ -1,3 +1,3 @@
-username = "your instagram account's username/email/number"
-password = "your instagram account's password"
-find_user = "username whose posts you want to like"
+username = "username of your instagram account"
+password = "password of your instagram account"
+find_user = "username of account to like and comment on"

@@ -38,13 +38,21 @@ class InstagramBot:
         global number
         number = int(number_of_posts.text)
 
-    def likePost(self):
-        click_post = self.driver.find_element_by_css_selector('a[href="/p/CTIQAfWhFdu/"]')
+    def likeAndComment(self):
+        click_post = self.driver.find_element_by_css_selector('div[class="eLAPa"]')
         click_post.click()
-        time.sleep(3)
+        time.sleep(2)
         for i in range(number):
             like = self.driver.find_element_by_css_selector('span[class="fr66n"]')
             like.click()
+            if i == 0:
+                comment = self.driver.find_element_by_css_selector('textarea[class="Ypffh"]')
+                comment.click()
+                comment = self.driver.find_element_by_css_selector('textarea[class="Ypffh focus-visible"]')
+                comment.send_keys("Great post! Make sure to check out my account "
+                                  "and make sure to follow my account"
+                                  " also Dont forget Leave a like on my posts")
+                comment.send_keys(Keys.RETURN)
             _next = self.driver.find_element_by_css_selector('a[class=" _65Bje  coreSpriteRightPaginationArrow"]')
             _next.click()
 
@@ -53,4 +61,4 @@ if __name__ == '__main__':
     bot = InstagramBot()
     bot.login()
     bot.search()
-    bot.likePost()
+    bot.likeAndComment()
